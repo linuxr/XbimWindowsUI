@@ -15,14 +15,7 @@ namespace XbinConverter
             var fileName = args[0];
             
             var converter = new ConverterGLB();
-            using (var store = IfcStore.Open(fileName))
-            {
-                converter.SetOneMeter(store.ModelFactors.OneMeter);
-                converter.WriteGeometries(store, fileName);
-
-                var spaitialTree = new SpatialTree(store);
-                spaitialTree.ExportJsonToBin(fileName, false);
-            }
+            converter.Convert(fileName, fileName+".xbin");
         }
     }
 }

@@ -69,6 +69,10 @@ namespace XbimXplorer
         /// Currently supoorts the export function for Wexbim
         /// </summary>
         public static RoutedCommand OpenExportWindowCmd = new RoutedCommand();
+        /// <summary>
+        /// Currently supoorts the export function for xbin
+        /// </summary>
+        public static RoutedCommand OpenExportXbinWindowCmd = new RoutedCommand();
 
         private string _temporaryXbimFileName;
 
@@ -635,7 +639,7 @@ namespace XbimXplorer
                 {
                     e.CanExecute = (Model != null);
                 }
-                else if (e.Command == OpenExportWindowCmd)
+                else if (e.Command == OpenExportWindowCmd || e.Command == OpenExportXbinWindowCmd)
                 {   
                     e.CanExecute = (Model != null) && (!string.IsNullOrEmpty(GetOpenedModelFileName()));
                 }
@@ -866,6 +870,12 @@ namespace XbimXplorer
         private void OpenExportWindow(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs)
         {
             var wndw = new ExportWindow(this);
+            wndw.ShowDialog();
+        }
+        
+        private void OpenExportXbinWindow(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs)
+        {
+            var wndw = new ExportXbinWindow(this);
             wndw.ShowDialog();
         }
 

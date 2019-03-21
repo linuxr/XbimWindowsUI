@@ -75,9 +75,9 @@ namespace XbinConverter.Export
         }
 
         // export json to gltf bin
-        public void ExportJsonToBin(string fileName, bool withIndent)
+        public void ExportJsonToBin(string fileName, string exportFilePath, bool withIndent)
         {
-            using (var binaryWriter = new StreamWriter(new FileStream(fileName + ".bin", FileMode.Append)))
+            using (var binaryWriter = new StreamWriter(new FileStream(exportFilePath, FileMode.Append)))
             // using (var binaryWriter = new BinaryWriter(new FileStream(fileName + ".bin", FileMode.Append)))
             {
                 var tp = new TreeAndProperties

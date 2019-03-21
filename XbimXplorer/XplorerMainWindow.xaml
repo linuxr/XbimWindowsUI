@@ -66,6 +66,7 @@
         <CommandBinding Command="{x:Static local:XplorerMainWindow.EditFederationCmd}" Executed="EditFederationCmdExecuted" CanExecute="EditFederationCmdCanExecute"/>
         <CommandBinding Command="{x:Static local:XplorerMainWindow.CreateFederationCmd}" Executed="CreateFederationCmdExecuted" CanExecute="CommandBinding_CanExecute"/>
         <CommandBinding Command="{x:Static local:XplorerMainWindow.OpenExportWindowCmd}" Executed="OpenExportWindow" CanExecute="CommandBinding_CanExecute"/>
+        <CommandBinding Command="{x:Static local:XplorerMainWindow.OpenExportXbinWindowCmd}" Executed="OpenExportXbinWindow" CanExecute="CommandBinding_CanExecute"/>
     </Window.CommandBindings>
 
     <Grid Name="MainFrame" DataContext="{StaticResource ModelProvider}">
@@ -91,6 +92,7 @@
                 <Separator />
                 <MenuItem x:Name="ExportMenu" Header="_Export">
                     <MenuItem Header="_WexBim" Command="{x:Static local:XplorerMainWindow.OpenExportWindowCmd}" />
+                    <MenuItem Header="_Xbin" Command="{x:Static local:XplorerMainWindow.OpenExportXbinWindowCmd}" />
                 </MenuItem>
                 <Separator />
                 <MenuItem Header="_Run command" Click="ShowCommandBox" />

@@ -66,15 +66,15 @@ namespace XbinConverter
             };
         }
 
-        public void Convert(string ifcPath)
+        public void Convert(string ifcPath, string exportFilePath)
         {
             using (var store = IfcStore.Open(ifcPath))
             {
                 this.SetOneMeter(store.ModelFactors.OneMeter);
-                this.WriteGeometries(store, ifcPath);
+                this.WriteGeometries(store, ifcPath, exportFilePath);
 
                 var spaitialTree = new SpatialTree(store);
-                spaitialTree.ExportJsonToBin(ifcPath, false);
+                spaitialTree.ExportJsonToBin(ifcPath, exportFilePath, false);
             }
         }
 
@@ -121,14 +121,14 @@ namespace XbinConverter
                     writer.Write((uint) index);
         }
 
-        public void WriteGeometries(IfcStore store, string fileName)
+        public void WriteGeometries(IfcStore store, string fileName, string exportFilePath)
         {
             var c = new Xbim3DModelContext(store);
             c.CreateContext();
             if (store.GeometryStore == null)
                 throw new XbimException("Geometry store has not been initialised");
 
-            using (var binaryWriter = new BinaryWriter(new FileStream(fileName + ".bin", FileMode.Create)))
+            using (var binaryWriter = new BinaryWriter(new FileStream(exportFilePath, FileMode.Create)))
             using (var geomRead = store.GeometryStore.BeginRead())
             {
                 WriteHeader(binaryWriter);
