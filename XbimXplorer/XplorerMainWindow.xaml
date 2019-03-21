@@ -195,25 +195,7 @@
                         </avalonDock:LayoutAnchorablePane>
                     </avalonDock:LayoutAnchorablePaneGroup>
                     <avalonDock:LayoutDocumentPane x:Name="MainDocPane">
-                        <avalonDock:LayoutDocument  CanClose="False" Title="3D View">
-                            <xbim:DrawingControl3D 
-                                x:Name="DrawingControl" 
-                                   SelectedEntity="{Binding Path=SelectedItem, ElementName=MainWindow, Mode=TwoWay}"    
-                                   Model ="{Binding}" 
-                                   Focusable="True" 
-                                   Width="Auto" 
-                                   Height="Auto" 
-                                   MouseDoubleClick="SpatialControl_MouseDoubleClick"
-                                   WcsAdjusted="{x:Static local:App.ContextWcsAdjustment}"
-                                   >
-                                <xbim:DrawingControl3D.Background>
-                                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                                        <GradientStop Color="#FFB9B1B1" Offset="1"/>
-                                        <GradientStop Color="#FFFAF8FF"/>
-                                    </LinearGradientBrush>
-                                </xbim:DrawingControl3D.Background>
-                            </xbim:DrawingControl3D>
-                        </avalonDock:LayoutDocument>
+                        <avalonDock:LayoutDocument  CanClose="False" Title="3D View"/>
                     </avalonDock:LayoutDocumentPane>
                 </avalonDock:LayoutPanel>
             </avalonDock:LayoutRoot>
