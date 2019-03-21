@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Xbim.Presentation\Xbim.Presentation.csproj" />
+    <ProjectReference Include="..\XbinConverter\XbinConverter.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Dialogs\ExportXbinWindow.xaml.cs">

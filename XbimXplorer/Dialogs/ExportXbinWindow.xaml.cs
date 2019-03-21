@@ -2,6 +2,8 @@
 using System.IO;
 using System.Windows;
 using Xbim.Ifc;
+using XbinConverter;
+using XbinConverter.Export;
 
 namespace XbimXplorer.Dialogs
 {
@@ -27,35 +29,44 @@ namespace XbimXplorer.Dialogs
 
         private void DoExport(object sender, RoutedEventArgs e)
         {
+            if (!Directory.Exists(TxtFolderName.Text))
+            {
+                try
+                {
+                    Directory.CreateDirectory(TxtFolderName.Text);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Error creating directory. Select a different location.");
+                    return;
+                }
+            }
+            
+            // file preparation
+            //
+            var ifcPath = _mainWindow.GetOpenedModelFileName();
+            try
+            {
+                var converter = new ConverterGLB();
+                converter.Convert(ifcPath);
+            }
+            catch (Exception ce)
+            {
+                if (CancelAfterNotification("Error exporting xbin file.", ce))
+                {
+                    return;
+                }
+            }
+            
+            Close();
         }
-                
 
-        private string GetExportName(string extension, int progressive = 0)
+        private bool CancelAfterNotification(string errorZoneMessage, Exception ce)
         {
-            var basefile = new FileInfo(_mainWindow.GetOpenedModelFileName());
-            var wexbimFileName = Path.Combine(TxtFolderName.Text, basefile.Name);
-            if (progressive != 0)
-                extension = progressive + "." + extension;
-            wexbimFileName = Path.ChangeExtension(wexbimFileName, extension);
-            return wexbimFileName;
-        }
-
-        private bool CancelAfterNotification(string errorZoneMessage, Exception ce, int totExports)
-        {
-            var tasksLeft = totExports - 1;
             var message = errorZoneMessage + "\r\n" + ce.Message + "\r\n";
-            if (tasksLeft > 0)
-            {
-                message += "\r\n" +
-                           $"Do you wish to continue exporting other {tasksLeft} formats?";
-                var ret = MessageBox.Show(message, "Error", MessageBoxButton.YesNoCancel, MessageBoxImage.Error);
-                return ret != MessageBoxResult.Yes;
-            }
-            else
-            {
-                var ret = MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return ret != MessageBoxResult.Yes;
-            }
+          
+            var ret = MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return ret != MessageBoxResult.Yes;
         }
     }
 
