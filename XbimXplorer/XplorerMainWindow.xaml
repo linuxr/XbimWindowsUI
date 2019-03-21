@@ -56,18 +56,18 @@
             </Grid>
         </DataTemplate>
     </Window.Resources>
-    
+
     <Window.CommandBindings>
         <CommandBinding Command="Open"   Executed="CommandBinding_Open" CanExecute="CommandBinding_CanExecute"/>
         <CommandBinding Command="Refresh" Executed="CommandBinding_Refresh"  CanExecute="CanExecuteIfFileOpen"/>
         <CommandBinding Command="SaveAs" Executed="CommandBinding_SaveAs"  CanExecute="CanExecuteIfModelNotNull"/>
         <CommandBinding Command="Close"  Executed="CommandBinding_Close" CanExecute="CanExecuteIfFileOpen"/>
-        
+
         <CommandBinding Command="{x:Static local:XplorerMainWindow.EditFederationCmd}" Executed="EditFederationCmdExecuted" CanExecute="EditFederationCmdCanExecute"/>
         <CommandBinding Command="{x:Static local:XplorerMainWindow.CreateFederationCmd}" Executed="CreateFederationCmdExecuted" CanExecute="CommandBinding_CanExecute"/>
         <CommandBinding Command="{x:Static local:XplorerMainWindow.OpenExportWindowCmd}" Executed="OpenExportWindow" CanExecute="CommandBinding_CanExecute"/>
     </Window.CommandBindings>
-    
+
     <Grid Name="MainFrame" DataContext="{StaticResource ModelProvider}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="24" />
@@ -195,7 +195,25 @@
                         </avalonDock:LayoutAnchorablePane>
                     </avalonDock:LayoutAnchorablePaneGroup>
                     <avalonDock:LayoutDocumentPane x:Name="MainDocPane">
-                        <avalonDock:LayoutDocument  CanClose="False" Title="3D View"/>
+                        <avalonDock:LayoutDocument  CanClose="False" Title="3D View">
+                            <xbim:DrawingControl3D 
+                                x:Name="DrawingControl" 
+                                   SelectedEntity="{Binding Path=SelectedItem, ElementName=MainWindow, Mode=TwoWay}"    
+                                   Model ="{Binding}" 
+                                   Focusable="True" 
+                                   Width="Auto" 
+                                   Height="Auto" 
+                                   MouseDoubleClick="SpatialControl_MouseDoubleClick"
+                                   WcsAdjusted="{x:Static local:App.ContextWcsAdjustment}"
+                                   >
+                                <xbim:DrawingControl3D.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFB9B1B1" Offset="1"/>
+                                        <GradientStop Color="#FFFAF8FF"/>
+                                    </LinearGradientBrush>
+                                </xbim:DrawingControl3D.Background>
+                            </xbim:DrawingControl3D>
+                        </avalonDock:LayoutDocument>
                     </avalonDock:LayoutDocumentPane>
                 </avalonDock:LayoutPanel>
             </avalonDock:LayoutRoot>
@@ -209,7 +227,7 @@
             <Label>Command:</Label>
             <TextBox x:Name="CommandPrompt" LostFocus="CommandBoxLost" KeyDown="CommandBoxEval" Margin="0,0,5,0" Grid.Column="2" TextWrapping="NoWrap" AcceptsReturn="False" VerticalAlignment="Center"></TextBox>
         </Grid>
-        
+
         <StatusBar Grid.Row="3" Height="23"  Name="StatusBar" VerticalAlignment="Top" >
             <StatusBarItem>
                 <etb:EditableTextBlock x:Name="EntityLabel" ValueSet="EntityLabel_KeyDown"></etb:EditableTextBlock>
