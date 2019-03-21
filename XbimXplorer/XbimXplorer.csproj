@@ -44,6 +44,10 @@
     <Resource Include="**\*.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Dialogs\ExportXbinWindow - 复制.xaml" />
+    <None Remove="Dialogs\ExportXbinWindow.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="AvalonDock" Version="2.0.2000" />
     <PackageReference Include="HelixToolkit.Wpf" Version="2015.1.715" />
     <PackageReference Include="Nuget.Core" Version="2.14.0" />
@@ -69,5 +73,18 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Xbim.Presentation\Xbim.Presentation.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Dialogs\ExportXbinWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Dialogs\ExportXbinWindow - 复制.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Dialogs\ExportXbinWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>
